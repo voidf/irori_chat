@@ -1,5 +1,6 @@
 """目标：生成Voc词汇表，以及一个n*2*length的list表示一问一答语料"""
 
+import json
 import pickle
 import unicodedata
 import re
@@ -39,6 +40,12 @@ def get_raw():
         pickle.dump(qa_pairs, f)
 
 # get_raw()
+
+def get_db_export():
+    print('filtering from db exported...')
+    with open('../conversationS4_312949.json', 'r', encoding='utf-8') as f:
+        j = json.load(f)
+    return [[fil(x['q']), fil(x['a'])] for x in j]
 
 def read_cache():
     with open('xiaohuangji.cache', 'rb') as f:
@@ -156,7 +163,9 @@ def trimRareWords(voc, pairs, MIN_COUNT):
     return keep_pairs
 
 if __name__ == '__main__':
-    pairs = read_cache()
+    # pairs = read_cache()
+    pairs = get_db_export()
+    print('prefilter done.')
 
     voc = loadPrepareData('huangji', pairs)
 
