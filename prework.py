@@ -12,13 +12,14 @@ from config import *
 def P(*args):
     return os.path.join(os.getcwd(), *args)
 
+Pmultispace_emitter = re.compile(r"\s+")
+Pinvalid_character = re.compile("[^\u4e00-\u9fa5^a-z^A-Z^0-9]")
+def fil(s: str) -> list:
+    # s = Pinvalid_character.sub(' ', s)
+    s = Pmultispace_emitter.sub(r" ", s).strip()
+    return jieba.lcut(s)
+
 def get_raw():
-    Pmultispace_emitter = re.compile(r"\s+")
-    Pinvalid_character = re.compile("[^\u4e00-\u9fa5^a-z^A-Z^0-9]")
-    def fil(s: str) -> list:
-        # s = Pinvalid_character.sub(' ', s)
-        s = Pmultispace_emitter.sub(r" ", s).strip()
-        return jieba.lcut(s)
 
     with open(HUANGJI_SOURCE, 'r', encoding='utf-8') as f:
         content = f.read().split('\nE\n')[1:]
@@ -69,12 +70,6 @@ def save_qa_to_db(qa_pairs: list):
 # 把Unicode字符串变成ASCII
 # 参考https://stackoverflow.com/a/518232/2809427
 
-
-def unicodeToAscii(s):
-    return ''.join(
-        c for c in unicodedata.normalize('NFD', s)
-        if unicodedata.category(c) != 'Mn'
-    )
 
 
 def normalizeString(s):

@@ -5,16 +5,9 @@ from Voc import *
 import re
 
 
-def unicodeToAscii(s):
-    return ''.join(
-        c for c in unicodedata.normalize('NFD', s)
-        if unicodedata.category(c) != 'Mn'
-    )
-
 
 def normalizeString(s):
     # 变成小写、去掉前后空格，然后unicode变成ascii
-    s = unicodeToAscii(s.lower().strip())
     # 在标点前增加空格，这样把标点当成一个词
     s = re.sub(r"([.!?])", r" \1", s)
     # 字母和标点之外的字符都变成空格

@@ -5,8 +5,9 @@ import pickle
 import unicodedata
 import torch
 import random
-from Voc import Voc
-from liandan_functions import *
+from Voc import *
+# from liandan_functions import *
+from prework import fil
 import torch.nn.functional as F
 
 from config import *
@@ -18,6 +19,8 @@ with open('processed_voc_pairs', 'rb') as f:
 
 
 def indexesFromSentence(voc, sentence):
+    if isinstance(sentence, list):
+        return [voc.word2index[word] for word in sentence] + [EOS_token]
     return [voc.word2index[word] for word in sentence.split(' ')] + [EOS_token]
 
 # l是多个长度不同句子(list)，使用zip_longest padding成定长，长度为最长句子的长度。
@@ -73,7 +76,7 @@ def outputVar(l, voc):
 # 处理一个batch的pair句对 
 def batch2TrainData(voc, pair_batch):
     # 按照句子的长度(词数)排序
-    pair_batch.sort(key=lambda x: len(x[0].split(" ")), reverse=True)
+    pair_batch.sort(key=lambda x: len(x[0]), reverse=True)
     input_batch, output_batch = [], []
     for pair in pair_batch:
         input_batch.append(pair[0])
@@ -451,15 +454,15 @@ def evaluateInput(encoder, decoder, searcher, voc):
             # 是否退出
             if input_sentence == 'q' or input_sentence == 'quit': break
             # 句子归一化
-            input_sentence = normalizeString(input_sentence)
+            input_sentence = fil(input_sentence)
             # 生成响应Evaluate sentence
             output_words = evaluate(encoder, decoder, searcher, voc, input_sentence)
             # 去掉EOS后面的内容
             words = []
             for word in output_words:
-                if word == 'EOS':
+                if word == EOS_TOKEN:
                     break
-                elif word != 'PAD':
+                elif word != PAD_TOKEN:
                     words.append(word)
             print('Bot:', ' '.join(words))
 

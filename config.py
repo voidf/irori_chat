@@ -1,3 +1,7 @@
+EOS_TOKEN = '<EOS/>'
+SOS_TOKEN = '<SOS/>'
+PAD_TOKEN = '<PAD/>'
+
 small_batch_size = 64
 MAX_LENGTH = 50
 MIN_COUNT = 3    # 阈值为3

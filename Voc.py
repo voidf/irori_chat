@@ -3,6 +3,8 @@ PAD_token = 0  # 表示padding
 SOS_token = 1  # 句子的开始
 EOS_token = 2  # 句子的结束
 
+from config import EOS_TOKEN, SOS_TOKEN, PAD_TOKEN
+
 
 class Voc:
     def __init__(self, name):
@@ -10,8 +12,8 @@ class Voc:
         self.trimmed = False
         self.word2index = {}
         self.word2count = {}
-        self.index2word = {PAD_token: "PAD",
-                           SOS_token: "SOS", EOS_token: "EOS"}
+        self.index2word = {PAD_token: PAD_TOKEN,
+                           SOS_token: SOS_TOKEN, EOS_token: EOS_TOKEN}
         self.num_words = 3  # 目前有SOS, EOS, PAD这3个token。
 
     def addSentence(self, sentence):
@@ -47,8 +49,8 @@ class Voc:
         # 重新构造词典
         self.word2index = {}
         self.word2count = {}
-        self.index2word = {PAD_token: "PAD",
-                           SOS_token: "SOS", EOS_token: "EOS"}
+        self.index2word = {PAD_token: PAD_TOKEN,
+                           SOS_token: SOS_TOKEN, EOS_token: EOS_TOKEN}
         self.num_words = 3  # Count default tokens
 
         # 重新构造后词频就没有意义了(都是1)
