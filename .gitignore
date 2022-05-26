@@ -1,0 +1,4 @@
+processed_voc_pairs
+*.cache
+*.conv
+__pycache__/

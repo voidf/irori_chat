@@ -134,7 +134,7 @@ def batch2TrainData(voc, pair_batch):
     output, mask, max_target_len = outputVar(output_batch, voc)
     return inp, lengths, output, mask, max_target_len
 
-small_batch_size = 6
+small_batch_size = 64
 batches = batch2TrainData(voc, [random.choice(pairs) for _ in range(small_batch_size)])
 input_variable, lengths, target_variable, mask, max_target_len = batches
 
