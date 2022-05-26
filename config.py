@@ -20,7 +20,7 @@ dropout = 0.1
 batch_size = 128
 
 # 从哪个checkpoint恢复，如果是None，那么从头开始训练。
-loadFilename = None
+loadFilename = 'check/cb_model/cornell_corpus/2-2_500/4000_checkpoint.tar'
 checkpoint_iter = 4000
 
 

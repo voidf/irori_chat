@@ -5,7 +5,7 @@ import pickle
 import unicodedata
 import re
 import os
-from Voc import *
+from depend.Voc import *
 import jieba
 
 from config import *

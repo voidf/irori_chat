@@ -1,7 +1,7 @@
 import unicodedata
 import torch
 import itertools
-from Voc import *
+from depend.Voc import *
 import re
 
 
